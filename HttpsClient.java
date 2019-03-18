@@ -17,9 +17,11 @@ public class HttpsClient{
 	
    public static void main(String[] args)
    {
+	   int Todayopen, Yesterdayopen;
 	   
 	 HttpsClient ter=new HttpsClient();
 	    try {
+			usingBufferedWritter("Helo");
 	   while(true)
 	   {
 	     System.out.println("Date we need :"+Long.toString(ter.todaysdate()));
@@ -34,7 +36,8 @@ public class HttpsClient{
 		}
 		else
 		{
-			System.out.println("todays epoch"+value.substring(6,16));
+			System.out.println("todays epoch :"+value.substring(6,16));
+			Todayopen=Integer.parseInt(value.substring(6,16));
 			if(value.substring(6,16).equals(Long.toString(ter.todaysdate())))
 			{
 				System.out.println("Todays open price: "+value.substring(34,38));
@@ -45,13 +48,24 @@ public class HttpsClient{
 				 if(value.substring(16,24).equals("nextTime"))
 				{
 					//value=testIt1(value.substring(27,37));
-					System.out.println(value.substring(26,36));
-					//System.exit(0); 
-					
+					System.out.println("Yesterday Epoch : "+value.substring(26,36));
+					Yesterdayopen=Integer.parseInt(value.substring(26,36));
+					System.out.println("Yesterday Close :"+testIt2(value.substring(26,36)).substring(23,27));
+					if(Todayopen>Yesterdayopen)
+					{
+						System.out.println("High");
+					}
+					else
+					{
+						System.out.println("Low");
+					}
+					System.exit(0); 
 				}
 				else 
 				{
-					
+					System.out.println("Yesterday Epoch1 : "+value.substring(6,16));
+					System.out.println("Yesterday Close :"+testIt2(value.substring(26,36)).substring(23,27));
+					System.exit(0); 
 				}
 				//Integer result = Integer.valueOf(ter.usingBufferedreader());
 				// kindly skip 7 or 1
@@ -83,9 +97,9 @@ public class HttpsClient{
 		 
 		 } /*catch (MalformedURLException e) {
 	     e.printStackTrace();
-      }catch (IOException e) {
+      }*/catch (IOException e) {
 	     e.printStackTrace();
-      }*/ 
+      } 
 	  catch (InterruptedException e){
       //handle the exception
    }
@@ -136,7 +150,7 @@ public class HttpsClient{
 	     //dump all the content
 	     value=print_content(con);
 		// value="{\"s\":\"no_data\",\"nextTime\":1551657600}";
-		 value="{\"t\":[1552521600],\"c\":[3973],\"o\":[4074],\"h\":[4117],\"l\":[3952],\"v\":[221143],\"vo\":[0],\"s\":\"ok\"}";
+		 value="{\"t\":[1552867200],\"c\":[3973],\"o\":[4074],\"h\":[4117],\"l\":[3952],\"v\":[221143],\"vo\":[0],\"s\":\"ok\"}";
 	
 		
 		
@@ -178,7 +192,14 @@ public class HttpsClient{
 		 return value;
 	}
 
-   
+   	
+	  public static String testIt2(String et){
+
+		 String value="";
+		 value="{\"t\":[1552521600],\"c\":[3973],\"o\":[4074],\"h\":[4117],\"l\":[3952],\"v\":[221143],\"vo\":[0],\"s\":\"ok\"}";
+		// value="{\"s\":\"no_data\",\"nextTime\":1551657600}";
+		 return value;
+	  }
    
  public  String usingBufferedreader() throws IOException
    {  
@@ -201,7 +222,7 @@ public class HttpsClient{
 	{
     String fileContent = "Hello Learner !! Welcome to howtodoinjava.com.";
      
-    BufferedWriter writer = new BufferedWriter(new FileWriter("E:\\test1.txt"));
+    BufferedWriter writer = new BufferedWriter(new FileWriter("E:\\"+Long.toString(todaysdate()),true));
     writer.write(fileContent);
     writer.close();
 	}
