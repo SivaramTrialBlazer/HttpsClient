@@ -17,11 +17,11 @@ public class HttpsClient{
 	
    public static void main(String[] args)
    {
-	   int Todayopen, Yesterdayopen;
+	   int Todayopen, Yesterdayclose;
 	   
 	 HttpsClient ter=new HttpsClient();
 	    try {
-			usingBufferedWritter("Helo");
+			//usingBufferedWritter("Helo");
 	   while(true)
 	   {
 	     System.out.println("Date we need :"+Long.toString(ter.todaysdate()));
@@ -44,27 +44,46 @@ public class HttpsClient{
 				
 				System.out.println("Getting yesterday close");
 				System.out.println("******* ********* *****");
-				 value=testIt1(Long.toString(ter.todaysdate()-86400));
+				 value=testIt(Long.toString(ter.todaysdate()-86400));
 				 if(value.substring(16,24).equals("nextTime"))
 				{
 					//value=testIt1(value.substring(27,37));
 					System.out.println("Yesterday Epoch : "+value.substring(26,36));
-					Yesterdayopen=Integer.parseInt(value.substring(26,36));
-					System.out.println("Yesterday Close :"+testIt2(value.substring(26,36)).substring(23,27));
-					if(Todayopen>Yesterdayopen)
+					Yesterdayclose=Integer.parseInt(value.substring(26,36));
+					System.out.println("Yesterday Close :"+testIt(value.substring(26,36)).substring(23,27));
+					if(Todayopen<Yesterdayclose)
 					{
 						System.out.println("High");
+						usingBufferedWritter("\nPLACE_ORDER,594659022,CRUDEOILM19APRFUT,BUY,NORMAL,LIMIT,75,11200,0,0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1552824627,,regular,0,0,0");
 					}
 					else
 					{
 						System.out.println("Low");
+						usingBufferedWritter("\nPLACE_ORDER,594659022,CRUDEOILM19APRFUT,BUY,NORMAL,LIMIT,75,11200,0,0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1552824627,,regular,0,0,0");
 					}
 					System.exit(0); 
 				}
 				else 
 				{
 					System.out.println("Yesterday Epoch1 : "+value.substring(6,16));
-					System.out.println("Yesterday Close :"+testIt2(value.substring(26,36)).substring(23,27));
+					Yesterdayclose=Integer.parseInt(value.substring(23,27));
+					System.out.println("Yesterday Close :"+Yesterdayclose);
+					
+					
+					//System.out.println("Yesterday Close :"+testIt(value.substring(26,36)).substring(23,27));
+					if(Todayopen<Yesterdayclose)
+					{
+						System.out.println("High");
+						usingBufferedWritter("\nPLACE_ORDER,594659022,CRUDEOILM19APRFUT,BUY,NORMAL,LIMIT,75,11200,0,0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1552824627,,regular,0,0,0");
+					}
+					else
+					{
+						System.out.println("Low");
+						usingBufferedWritter("\nPLACE_ORDER,594659022,CRUDEOILM19APRFUT,BUY,NORMAL,LIMIT,75,11200,0,0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1552824627,,regular,0,0,0");
+					}
+					
+					
+					
 					System.exit(0); 
 				}
 				//Integer result = Integer.valueOf(ter.usingBufferedreader());
@@ -129,6 +148,7 @@ public class HttpsClient{
 			
 		}
 		return (epoch/1000);
+		//return 1552867200;
 	}	
 	
   public static String testIt(String et){
@@ -139,7 +159,7 @@ public class HttpsClient{
       try {
 		 
 		
-		 String https_url = "https://mail.tmbank.in?from="+et+"&to="+et;
+		 String https_url = "https://tvc4.forexpros.com/a5576b59a15cff4472bf47416ca1a030/1551345017/56/56/23/history?symbol=49774&resolution=D&from="+et+"&to="+et;
 		
 	     url = new URL(https_url);
 	     HttpsURLConnection con = (HttpsURLConnection)url.openConnection();
@@ -150,10 +170,10 @@ public class HttpsClient{
 	     //dump all the content
 	     value=print_content(con);
 		// value="{\"s\":\"no_data\",\"nextTime\":1551657600}";
-		 value="{\"t\":[1552867200],\"c\":[3973],\"o\":[4074],\"h\":[4117],\"l\":[3952],\"v\":[221143],\"vo\":[0],\"s\":\"ok\"}";
+		// value="{\"t\":[1552867200],\"c\":[3973],\"o\":[4074],\"h\":[4117],\"l\":[3952],\"v\":[221143],\"vo\":[0],\"s\":\"ok\"}";
 	
 		
-		
+		System.out.println("Value we get :"+value);
 		
 		/* System.out.println("Next time :"+value.substring(26,36)+"++++"+value.substring(16,24));
 		 value=value.substring(26,36);
@@ -184,7 +204,7 @@ public class HttpsClient{
 	
 	
 	
-	  public static String testIt1(String et){
+/*	  public static String testIt1(String et){
 
 		 String value="";
 		// value="{\"t\":[1552521600],\"c\":[3973],\"o\":[4074],\"h\":[4117],\"l\":[3952],\"v\":[221143],\"vo\":[0],\"s\":\"ok\"}";
@@ -216,22 +236,22 @@ public class HttpsClient{
 	} 
 	return vr;
 
-	}
+	}*/
 	
-	public static void usingBufferedWritter(String text) throws IOException
+	/*public static void usingBufferedWritter(String text) throws IOException
 	{
-    String fileContent = "Hello Learner !! Welcome to howtodoinjava.com.";
+    String fileContent = "Hello Learner !! Welcome to howtodoinjava.com.\n";
      
     BufferedWriter writer = new BufferedWriter(new FileWriter("E:\\"+Long.toString(todaysdate()),true));
     writer.write(fileContent);
     writer.close();
-	}
+	}*/
 	
-	public static void usingBufferedWritter1(String text) throws IOException
+	public static void usingBufferedWritter(String text) throws IOException
 	{
     String fileContent = text;
      
-    BufferedWriter writer = new BufferedWriter(new FileWriter("E:\\test1.txt"));
+    BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\autotrader\\data\\order\\orders.csv"));
     writer.write(fileContent);
     writer.close();
 	}
