@@ -12,6 +12,8 @@ import java.util.concurrent.TimeUnit;
 
 //java -Djsse.enableSNIExtension=false HttpsClient
 //keytool -import -alias test -keystore F:\jdk1.7.0_17\jre\lib\security\cacerts -file test.cer
+//netsh int ip add address "Loopback" 35.244.45.179
+//netsh int ip add addr 1 35.244.45.179/32 st=ac sk=tr
 
 public class HttpsClient{
 	
@@ -37,10 +39,11 @@ public class HttpsClient{
 		else
 		{
 			System.out.println("todays epoch :"+value.substring(6,16));
-			Todayopen=Integer.parseInt(value.substring(6,16));
+			//Todayopen=Integer.parseInt(value.substring(6,16));
 			if(value.substring(6,16).equals(Long.toString(ter.todaysdate())))
 			{
 				System.out.println("Todays open price: "+value.substring(34,38));
+				Todayopen=Integer.parseInt(value.substring(34,38));
 				
 				System.out.println("Getting yesterday close");
 				System.out.println("******* ********* *****");
@@ -51,17 +54,19 @@ public class HttpsClient{
 					System.out.println("Yesterday Epoch : "+value.substring(26,36));
 					Yesterdayclose=Integer.parseInt(value.substring(26,36));
 					System.out.println("Yesterday Close :"+testIt(value.substring(26,36)).substring(23,27));
-					if(Todayopen<Yesterdayclose)
+					/*if(Todayopen<Yesterdayclose)
 					{
 						System.out.println("High");
-						usingBufferedWritter("\nPLACE_ORDER,594659022,CRUDEOILM19APRFUT,BUY,NORMAL,LIMIT,75,11200,0,0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1552824627,,regular,0,0,0");
+					usingBufferedWritter("\nPLACE_ORDER,594213438,CRUDEOILM19APRFUT,BUY,INTRADAY,MARKET,1,0,0,0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1553072066,,REGULAR,0,0,0");
+					usingBufferedWritter("\nPLACE_ORDER,594329312,CRUDEOILM19APRFUT,SELL,INTRADAY,STOP_LOSS,1,"+Todayopen*(97.5/100)+",0,0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1553154337,,regular,0,0,0");
 					}
 					else
 					{
 						System.out.println("Low");
-						usingBufferedWritter("\nPLACE_ORDER,594659022,CRUDEOILM19APRFUT,BUY,NORMAL,LIMIT,75,11200,0,0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1552824627,,regular,0,0,0");
+					usingBufferedWritter("\nPLACE_ORDER,594213438,CRUDEOILM19APRFUT,SELL,INTRADAY,MARKET,1,0,0,0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1553072066,,REGULAR,0,0,0");
+					usingBufferedWritter("\nPLACE_ORDER,594329312,CRUDEOILM19APRFUT,BUY,INTRADAY,STOP_LOSS,1,"+Todayopen*(102.5/100)+",0,0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1553154337,,regular,0,0,0");
 					}
-					System.exit(0); 
+					System.exit(0); */
 				}
 				else 
 				{
@@ -70,22 +75,28 @@ public class HttpsClient{
 					System.out.println("Yesterday Close :"+Yesterdayclose);
 					
 					
-					//System.out.println("Yesterday Close :"+testIt(value.substring(26,36)).substring(23,27));
-					if(Todayopen<Yesterdayclose)
+				}
+				
+									//System.out.println("Yesterday Close :"+testIt(value.substring(26,36)).substring(23,27));
+					if(Todayopen>Yesterdayclose)
 					{
 						System.out.println("High");
-						usingBufferedWritter("\nPLACE_ORDER,594659022,CRUDEOILM19APRFUT,BUY,NORMAL,LIMIT,75,11200,0,0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1552824627,,regular,0,0,0");
+		usingBufferedWritter("\nPLACE_ORDER,594213438,CRUDEOILM19APRFUT,BUY,INTRADAY,MARKET,1,0,0,0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1553072066,,REGULAR,0,0,0");
+		usingBufferedWritter("\nPLACE_ORDER,594329312,CRUDEOILM19APRFUT,SELL,INTRADAY,STOP_LOSS,1,"+Todayopen*(97.5/100)+",0,0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1553154337,,regular,0,0,0");
+		System.exit(0); 
 					}
 					else
 					{
 						System.out.println("Low");
-						usingBufferedWritter("\nPLACE_ORDER,594659022,CRUDEOILM19APRFUT,BUY,NORMAL,LIMIT,75,11200,0,0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1552824627,,regular,0,0,0");
+				usingBufferedWritter("\nPLACE_ORDER,594213438,CRUDEOILM19APRFUT,SELL,INTRADAY,MARKET,1,0,0,0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1553072066,,REGULAR,0,0,0");
+				usingBufferedWritter("\nPLACE_ORDER,594329312,CRUDEOILM19APRFUT,BUY,INTRADAY,STOP_LOSS,1,"+Todayopen*(102.5/100)+",0,0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1553154337,,regular,0,0,0");
+				System.exit(0); 
 					}
 					
 					
 					
-					System.exit(0); 
-				}
+					
+
 				//Integer result = Integer.valueOf(ter.usingBufferedreader());
 				// kindly skip 7 or 1
 				/*Date expiry = new Date((Long.parseLong(ter.usingBufferedreader())) * 1000);
@@ -251,7 +262,16 @@ public class HttpsClient{
 	{
     String fileContent = text;
      
-    BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\autotrader\\data\\order\\orders.csv"));
+    BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\autotrader\\data\\order\\orders.csv",true));
+    writer.write(fileContent);
+    writer.close();
+	}
+
+	public static void findTodayFile(String text) throws IOException
+	{
+    String fileContent = text;
+     
+    BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\autotrader\\data\\order\\orders.csv",true));
     writer.write(fileContent);
     writer.close();
 	}
