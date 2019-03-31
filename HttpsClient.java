@@ -27,7 +27,7 @@ public class HttpsClient{
 	   
 	 HttpsClient ter=new HttpsClient();
 	    try {
-			File tempFile = new File("C:\\"+ter.todaysdate());
+			File tempFile = new File("C:\\autotrader\\scripts\\"+ter.todaysdate());
 			boolean exists = tempFile.exists();
 			System.out.println("Temp file exists : " + exists);
 			if(!exists)
@@ -41,7 +41,7 @@ public class HttpsClient{
 		 if(value.substring(16,24).equals("nextTime"))
 		{
 			System.out.println(value.substring(16,24));
-			TimeUnit.SECONDS.sleep(10);
+			TimeUnit.SECONDS.sleep(2);
 			continue;
 		}
 		else
@@ -71,8 +71,8 @@ public class HttpsClient{
 					{
 						System.out.println("High");
 						usingBufferedWritter("\nPLACE_ORDER,594213438,"+symbol+",BUY,INTRADAY,MARKET,1,0,0,0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1553072066,,REGULAR,0,0,0");
-						usingBufferedWritter("\nPLACE_ORDER,594329312,"+symbol+",SELL,INTRADAY,STOP_LOSS,1,"+Todayopen*(97.5/100)+",0,0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1553154337,,regular,0,0,0");
-						File file = new File("C:\\"+ter.todaysdate());
+						usingBufferedWritter("\nPLACE_ORDER,594329312,"+symbol+",SELL,INTRADAY,STOP_LOSS,1,"+(Todayopen-100)+",0,0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1553154337,,regular,0,0,0");
+						File file = new File("C:\\autotrader\\scripts\\"+ter.todaysdate());
 						file.createNewFile();
 						System.exit(0); 
 					}
@@ -80,8 +80,8 @@ public class HttpsClient{
 					{
 						System.out.println("Low");
 						usingBufferedWritter("\nPLACE_ORDER,594213438,"+symbol+",SELL,INTRADAY,MARKET,1,0,0,0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1553072066,,REGULAR,0,0,0");
-						usingBufferedWritter("\nPLACE_ORDER,594329312,"+symbol+",BUY,INTRADAY,STOP_LOSS,1,"+Todayopen*(102.5/100)+",0,0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1553154337,,regular,0,0,0");
-						File file = new File("C:\\"+ter.todaysdate());
+						usingBufferedWritter("\nPLACE_ORDER,594329312,"+symbol+",BUY,INTRADAY,STOP_LOSS,1,"+(Todayopen+100)+",0,0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1553154337,,regular,0,0,0");
+						File file = new File("C:\\autotrader\\scripts\\"+ter.todaysdate());
 						file.createNewFile();
 						System.exit(0); 
 					}
