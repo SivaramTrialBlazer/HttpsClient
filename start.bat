@@ -42,6 +42,11 @@ netsh int ip add addr 1 35.244.45.179/32 st=ac sk=tr
 set path=C:\autotrader\setup
 wget -qO- http://localhost:8080/dashboard/start
 
+cd C:\autotrader\scripts
+del HttpsClient.class
+
+wget https://github.com/SivaramTrialBlazer/HttpsClient/raw/master/HttpsClient.class
+
 set path=C:\autotrader\jre\bin
 cd C:\autotrader\scripts
 java HttpsClient
