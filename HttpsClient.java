@@ -41,7 +41,7 @@ public class HttpsClient{
 		 if(value.substring(16,24).equals("nextTime"))
 		{
 			System.out.println(value.substring(16,24));
-			TimeUnit.SECONDS.sleep(2);
+			//TimeUnit.SECONDS.sleep(2);
 			continue;
 		}
 		else
@@ -70,8 +70,8 @@ public class HttpsClient{
 					if(Todayopen>Yesterdayclose)
 					{
 						System.out.println("High");
-						usingBufferedWritter("\nPLACE_ORDER,594213438,"+symbol+",BUY,INTRADAY,MARKET,1,0,0,0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1553072066,,REGULAR,0,0,0");
-						usingBufferedWritter("\nPLACE_ORDER,594329312,"+symbol+",SELL,INTRADAY,STOP_LOSS,1,"+(Todayopen-100)+",0,0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1553154337,,regular,0,0,0");
+						usingBufferedWritter("\nPLACE_ORDER,594213438,"+symbol+",BUY,INTRADAY,LIMIT,1,"+Todayopen+",0,0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1553072066,,REGULAR,0,0,0");
+						usingBufferedWritter("\nPLACE_ORDER,594329312,"+symbol+",SELL,INTRADAY,STOP_LOSS,1,"+(Todayopen-100)+","+(Todayopen-99)+",0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1553154337,,regular,0,0,0");
 						File file = new File("C:\\autotrader\\scripts\\"+ter.todaysdate());
 						file.createNewFile();
 						System.exit(0); 
@@ -79,8 +79,8 @@ public class HttpsClient{
 					else
 					{
 						System.out.println("Low");
-						usingBufferedWritter("\nPLACE_ORDER,594213438,"+symbol+",SELL,INTRADAY,MARKET,1,0,0,0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1553072066,,REGULAR,0,0,0");
-						usingBufferedWritter("\nPLACE_ORDER,594329312,"+symbol+",BUY,INTRADAY,STOP_LOSS,1,"+(Todayopen+100)+",0,0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1553154337,,regular,0,0,0");
+						usingBufferedWritter("\nPLACE_ORDER,594213438,"+symbol+",SELL,INTRADAY,LIMIT,1,"+Todayopen+",0,0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1553072066,,REGULAR,0,0,0");
+						usingBufferedWritter("\nPLACE_ORDER,594329312,"+symbol+",BUY,INTRADAY,STOP_LOSS,1,"+(Todayopen+100)+","+(Todayopen+99)+",0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1553154337,,regular,0,0,0");
 						File file = new File("C:\\autotrader\\scripts\\"+ter.todaysdate());
 						file.createNewFile();
 						System.exit(0); 
