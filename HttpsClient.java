@@ -17,13 +17,13 @@ import java.util.concurrent.TimeUnit;
 //netsh int ip add addr 1 35.244.45.179/32 st=ac sk=tr
 //set path=C:\autotrader\setup
 //wget http://localhost:8080/dashboard/start
-
+//netsh int ip delete addr 1 35.244.45.179
 public class HttpsClient{
 	
    public static void main(String[] args)
    {
 	   int Todayopen, Yesterdayclose;
-	   String symbol="CRUDEOILM19JUNFUT";
+	   String symbol="CRUDEOILM19MAYFUT";
 	   
 	 HttpsClient ter=new HttpsClient();
 	    try {
