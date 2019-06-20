@@ -23,7 +23,7 @@ public class HttpsClient{
    public static void main(String[] args)
    {
 	   int Todayopen, Yesterdayclose;
-	   String symbol="CRUDEOILM19JUNFUT";
+	   String symbol="CRUDEOILM19JULFUT";
 	   
 	 HttpsClient ter=new HttpsClient();
 	    try {
