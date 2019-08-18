@@ -34,7 +34,7 @@ echo "Waiting for AutoTrader to startup, this window will close automatically."
 echo "I will launch http://localhost:8080 once the wait completes."
 
 
-TIMEOUT /T 70 /NOBREAK
+TIMEOUT /T 100 /NOBREAK
 set path=C:\autotrader\scripts
 set path=c:\windows\system32
 netsh int ip add addr 1 35.244.45.179/32 st=ac sk=tr
@@ -44,12 +44,13 @@ wget -qO- http://localhost:8080/dashboard/start
 
 cd C:\autotrader\scripts
 del HttpsClient.class
+del month.txt
 
 wget https://github.com/SivaramTrialBlazer/HttpsClient/raw/master/HttpsClient.class
+wget https://github.com/SivaramTrialBlazer/HttpsClient/raw/master/month.txt
+wget -qO- http://localhost:8080/rtd/downloadInstruments
 
-set path=C:\autotrader\jre\bin
-cd C:\autotrader\scripts
-java HttpsClient
+
 
 
 
