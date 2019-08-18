@@ -9,9 +9,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 //java -Djsse.enableSNIExtension=false HttpsClient
-//keytool -import -alias test -keystore F:\jdk1.7.0_17\jre\lib\security\cacerts -file test.cer
+//keytool -import -alias test -keystore F:\jdk1.7.0_17\jre\lib\security\cacerts -file test.cer //pass:changeit
 // path=c:\windows\system32
 //netsh int ip add address "Loopback" 35.244.45.179
 //netsh int ip add addr 1 35.244.45.179/32 st=ac sk=tr
@@ -23,7 +27,9 @@ public class HttpsClient{
    public static void main(String[] args)
    {
 	   int Todayopen, Yesterdayclose;
-	   String symbol="CRUDEOILM19AUGFUT";
+	   String symbol=readExpiry();
+	   //System.out.println("Temp file e"+readExpiry());
+	   
 	   
 	 HttpsClient ter=new HttpsClient();
 	    try {
@@ -77,7 +83,7 @@ public class HttpsClient{
 						file.createNewFile();
 						System.exit(0); 
 					}
-					else
+					else if(Todayopen<Yesterdayclose)
 					{
 						System.out.println("Low");
 						//usingBufferedWritter("\nPLACE_ORDER,594213438,"+symbol+",SELL,INTRADAY,LIMIT,1,"+Todayopen+",0,0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1553072066,,REGULAR,0,0,0");
@@ -86,6 +92,11 @@ public class HttpsClient{
 						File file = new File("C:\\autotrader\\scripts\\"+ter.todaysdate());
 						file.createNewFile();
 						System.exit(0); 
+					}
+					else if(Todayopen==Yesterdayclose)
+					{
+						//Do Nothing
+						
 					}
 			}	
 			}
@@ -166,6 +177,29 @@ public class HttpsClient{
     BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\autotrader\\data\\order\\orders.csv",true));
     writer.write(fileContent);
     writer.close();
+	}
+	
+	public static String readExpiry()
+	{
+		StringBuilder sb = new StringBuilder();
+		String Exp="";
+
+        try (BufferedReader br = Files.newBufferedReader(Paths.get("month.txt"))) {
+
+            // read line by line
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.append(line);//.append("\n");
+				Exp=line;
+            }
+
+        } catch (IOException e) {
+            System.err.format("IOException: %s%n", e);
+        }
+
+        //System.out.println(sb.toString());
+		return(Exp);
+		
 	}
 	
    private static void print_https_cert(HttpsURLConnection con){
