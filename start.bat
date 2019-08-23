@@ -48,12 +48,14 @@ del month.txt
 
 wget https://github.com/SivaramTrialBlazer/HttpsClient/raw/master/HttpsClient.class
 wget https://github.com/SivaramTrialBlazer/HttpsClient/raw/master/month.txt
-wget -qO- http://localhost:8080/rtd/downloadInstruments
+
 
 
 set path=C:\Program Files\Java\jdk-12.0.2\bin
 cd C:\autotrader\scripts
 java HttpsClient
+
+
 
 
 exit
