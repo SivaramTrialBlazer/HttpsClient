@@ -106,8 +106,8 @@ public class HttpsClient{
 		{
 				System.out.println("closing orders in 100 seconds\n");
 				TimeUnit.SECONDS.sleep(100);
-				usingBufferedWritter("\nCANCEL_ORDER,594329312");
-				usingBufferedWritter("\nSQUARE_OFF_POSITION,MCX,"+symbol+",1");
+				//usingBufferedWritter("\nCANCEL_ORDER,594329312");
+				//usingBufferedWritter("\nSQUARE_OFF_POSITION,MCX,"+symbol+",1");
 				System.out.println("order closed sucessfully\n");
 		}
 		 } catch (IOException e) {
