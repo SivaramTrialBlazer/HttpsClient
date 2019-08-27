@@ -42,22 +42,22 @@ public class FileExample1 {
                 sb.append(line);//.append("\n");
 				sb1=sb1+line;
             }
-			
-		System.out.println(sb1.substring(0,17));
-		System.out.println(Integer.parseInt(sb1.substring(34,37)));
+			String[] namesList = sb1.split(",");
+		System.out.println("Position found :"+namesList[0]);
+		//System.out.println(Integer.parseInt(sb1.substring(34,37)));
 		
-		if(Integer.parseInt(sb1.substring(34,37))==-10)
+		if(Integer.parseInt(namesList[3])==-10)
 		{
-			System.out.println("one sell position found:"+sb1.substring(0,17));
+			System.out.println("one sell position found:"+namesList[0]);
 			usingBufferedWritter("\nCANCEL_ORDER,594329312");
-			usingBufferedWritter("\nPLACE_ORDER,594213439,"+sb1.substring(0,17)+",BUY,INTRADAY,MARKET,1,0,0,0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1553072066,,REGULAR,0,0,0");
+			usingBufferedWritter("\nPLACE_ORDER,594213439,"+namesList[0]+",BUY,INTRADAY,MARKET,1,0,0,0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1553072066,,REGULAR,0,0,0");
 			
 		}
-		else if(Integer.parseInt(sb1.substring(34,37))==10)
+		else if(Integer.parseInt(namesList[3])==10)
 		{
-			System.out.println("one buy position found:"+sb1.substring(0,17));
+			System.out.println("one buy position found:"+namesList[0]);
 			usingBufferedWritter("\nCANCEL_ORDER,594329312");
-			usingBufferedWritter("\nPLACE_ORDER,594213439,"+sb1.substring(0,17)+",SELL,INTRADAY,MARKET,1,0,0,0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1553072066,,REGULAR,0,0,0");
+			usingBufferedWritter("\nPLACE_ORDER,594213439,"+namesList[0]+",SELL,INTRADAY,MARKET,1,0,0,0,MCX,EQ,NA,0,NA,NA,DAY,CLI,0,-1,1553072066,,REGULAR,0,0,0");
 			
 		}
 
